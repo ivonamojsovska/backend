@@ -13,10 +13,45 @@ app.listen(3000, () => {
     console.log('listening')
 })
 
-mongoose.connect(process.env.MONGODB, () => {
-    console.log('The connection with mongodb is established');
+app.get('/', async (req, res) => {
+    try {
+        const ToDos = await Todo.find({})
+        res.json(ToDos)
+    } catch (err) {
+        console.log(err)
+    }
 })
 
-mongoose.connection.once('open', () => {
-    console.log('connected to mongoDB')
+app.post('/todo', async (req, res) => {
+    try {
+        const newTodo = await Todo.create(req.body)
+        res.json(newTodo)
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+app.put('/todo/:id', async (req, res) => {
+    try {
+        const editTodo = await Todo.findByIdAndUpdate(req.params.id, req.body, { new: true })
+        res.json(editTodo)
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+app.delete('/todo/:id', async (req, res) => {
+    try {
+        const deletedTodo = await Todo.findByIDandRemove(req.params.id)
+        req.json(deletedTodo)
+
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+
+
+mongoose.connect(process.env.MONGODB).then(() => {
+    console.log('mongo connected')
 })
