@@ -1,36 +1,63 @@
-app.get('/', async (req, res) => {
-    try {
-        const ToDos = await Todo.find({})
-        res.json(ToDos)
-    } catch (err) {
-        console.log(err)
-    }
-})
+// Requirements
+const express = require("express");
+const router = express.Router();
+const mongoose = require("mongoose");
+const TaskModel = require("../models/taskSchema");
 
-app.post('/todo', async (req, res) => {
-    try {
-        const newTodo = await Todo.create(req.body)
-        res.json(newTodo)
-    } catch (err) {
-        console.log(err)
-    }
-})
+// Routes
 
-app.put('/todo/:id', async (req, res) => {
-    try {
-        const editTodo = await Todo.findByIdAndUpdate(req.params.id, req.body, { new: true })
-        res.json(editTodo)
-    } catch (err) {
-        console.log(err)
-    }
-})
+// INDEX
+router.get("/", async (req, res) => {
+  try {
+    const allTasks = await TaskModel.find({});
+    res.json(allTasks);
+  } catch (err) {
+    console.log(err);
+  }
+});
 
-app.delete('/todo/:id', async (req, res) => {
-    try {
-        const deletedTodo = await Todo.findByIDandRemove(req.params.id)
-        req.json(deletedTodo)
+// CREATE
+router.post("/", async (req, res) => {
+  try {
+    const newTask = await TaskModel.create(req.body);
+    res.json(newTask);
+  } catch (err) {
+    console.log(err);
+  }
+});
 
-    } catch (err) {
-        console.log(err)
-    }
-})
+// SHOW
+router.get("/:id", async (req, res) => {
+  try {
+    const foundTask = await TaskModel.findById(req.params.id);
+    res.json(foundTask);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+// UPDATE
+router.put("/:id", async (req, res) => {
+  try {
+    const updatedTask = await TaskModel.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+    res.json(updatedTask);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+// DELETE
+router.delete("/:id", async (req, res) => {
+  try {
+    const deletedTask = await TaskModel.findByIdAndDelete(req.params.id);
+    res.json(deletedTask);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+module.exports = router;
