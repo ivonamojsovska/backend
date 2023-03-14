@@ -25,8 +25,8 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use("/task", taskController);
-app.use("/task/user", userRoutes);
+app.use("/tasks", taskController);
+app.use("/tasks/user", userRoutes);
 
 // Mongoose / MongoDB
 mongoose.connect(process.env.MONGODB)
