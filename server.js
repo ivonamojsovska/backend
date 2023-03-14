@@ -24,15 +24,15 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use("/taskAway", taskController);
+app.use("/tasks", taskController);
 
 // Mongoose / MongoDB
-mongoose.connect(process.env.MONGODB);
-mongoose.connection.once("open", () => {
-  console.log("connected to MongoDB");
-});
+mongoose.connect(process.env.MONGODB)
+// mongoose.connection.once("open", () => {
+//   console.log("connected to MongoDB");
+// });
 
 // Listen - Broadcast
 app.listen(PORT, () => {
-  console.log("the server is listening at" + PORT);
+  console.log("the server is listening at " + PORT);
 });
