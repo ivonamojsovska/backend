@@ -11,6 +11,7 @@ const PORT = process.env.PORT || 4000;
 
 // Controllers
 const taskController = require("./controllers/taskController");
+const userRoutes = require("./routes/user")
 
 // Middleware
 app.use(express.json());
@@ -24,7 +25,8 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use("/tasks", taskController);
+app.use("/task", taskController);
+app.use("/task/user", userRoutes);
 
 // Mongoose / MongoDB
 mongoose.connect(process.env.MONGODB)
