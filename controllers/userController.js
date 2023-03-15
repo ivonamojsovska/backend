@@ -8,10 +8,14 @@ const createToken = (id) => {
 
 // Login user
 const loginUser = async (req, res) => {
+  const {email, password} = req.body
   try {
-    res.json({ mssg: "login user" });
+    const user = await User.login(email, password)
+    // After login, they will be given a webtoken
+    const token = createToken(user._id)
+    res.status(200).json({email, token})
   } catch (err) {
-    console.log(err);
+    res.status(400).json({err: err.message})
   }
 };
 
