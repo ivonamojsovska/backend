@@ -3,6 +3,10 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const TaskModel = require("../models/taskSchema");
+const requireAuth = require("../middleware/requireAuth")
+
+// Middleware
+// router.use(requireAuth)
 
 // Routes
 
