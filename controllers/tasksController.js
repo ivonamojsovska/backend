@@ -46,7 +46,7 @@ const updateTask = async (req, res) => {
 // DELETE task
 const deleteTask = async (req, res) => {
   try {
-    const deletedTask = await TaskModel.findByIdAndDelete(req.params.id);
+    const deletedTask = await Tasks.findByIdAndDelete(req.params.id);
     res.json(deletedTask);
   } catch (err) {
     console.log(err);
