@@ -4,7 +4,7 @@ const router = express.Router();
 const requireAuth = require("../middleware/requireAuth");
 
 // Middleware
-router.use(requireAuth);
+// router.use(requireAuth);
 
 // Controller
 const {
