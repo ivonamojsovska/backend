@@ -10,8 +10,8 @@ require("dotenv").config();
 const PORT = process.env.PORT || 4000;
 
 // Controllers
-const taskController = require("./controllers/taskController");
-const userRoutes = require("./routes/user")
+const tasksRoutes = require("./routes/tasks");
+const userRoutes = require("./routes/user");
 
 // Middleware
 app.use(express.json());
@@ -19,17 +19,11 @@ app.use(cors());
 app.use(logger("dev"));
 
 // Routes
-app.get("/", (req, res) => {
-  res.json({
-    success: true,
-  });
-});
-
-app.use("/tasks", taskController);
-app.use("/tasks/user", userRoutes);
+app.use("/ta/tasks", tasksRoutes);
+app.use("/ta/user", userRoutes);
 
 // Mongoose / MongoDB
-mongoose.connect(process.env.MONGODB)
+mongoose.connect(process.env.MONGODB);
 // mongoose.connection.once("open", () => {
 //   console.log("connected to MongoDB");
 // });
