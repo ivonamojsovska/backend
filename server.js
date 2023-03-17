@@ -20,18 +20,19 @@ app.use(logger("dev"));
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Authorization, X-Requested-With"
+  );
   next();
 });
+
 // Routes
 app.use("/ta/tasks", tasksRoutes);
 app.use("/ta/user", userRoutes);
 
 // Mongoose / MongoDB
 mongoose.connect(process.env.MONGODB);
-// mongoose.connection.once("open", () => {
-//   console.log("connected to MongoDB");
-// });
 
 // Listen - Broadcast
 app.listen(PORT, () => {
